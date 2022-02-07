@@ -1,9 +1,12 @@
+import static utils.Printer.*;
+
 import java.util.HashMap;
+
 
 public class StepTracker {
     private int goalNumbersOfSteps = 10000;
     private static int dayInMonth = 30;
-    HashMap<String, MonthData> monthToData = new HashMap<>();
+    private static HashMap<String, MonthData> monthToData = new HashMap<>();
     private static final String[] months =
             {"Январь", "Февраль", "Март", " Апрель", "Май",
                     "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"};
@@ -20,10 +23,10 @@ public class StepTracker {
 
     public void setGoalNumbersOfSteps(int goal) { //Сеттер для установки новой цели Обьекта
         if (goal < 0) {
-            Printer.sayNegativeValue();
+            sayNegativeValue();
         } else {
             this.goalNumbersOfSteps = goal;
-            Printer.saveData();
+            saveData();
         }
     }
 
@@ -33,10 +36,14 @@ public class StepTracker {
 
     public static void setDayInMonth(int day) { //Защищаем сеттером значение дней в месяце
         if (day < 28 || day > 31) {
-            Printer.print("В месяце не может быть " + day + " дней");
+            print("В месяце не может быть " + day + " дней");
         } else {
             dayInMonth = day;
         }
+    }
+
+    public static HashMap<String, MonthData> getMonthToData() {
+        return monthToData;
     }
 
     public String[] getMonths() {
@@ -45,7 +52,7 @@ public class StepTracker {
 
     void saveSteps(String month, int day, int steps) {
         monthToData.get(month).dataToStep.put(day, steps);
-        Printer.saveData();
+        saveData();
     }
 
     void getStatistics(String month) {
@@ -58,7 +65,7 @@ public class StepTracker {
         int daySet = 0; //день с которого начинается лучший сет
         Converter converter = new Converter(0.75, 50); // 1 шаг = 0,75 м, 1 шаг = 50 калорий
 
-        Printer.putLine();
+        putLine();
         for (Integer day : monthToData.get(month).dataToStep.keySet()) {
             System.out.print(day + " день: " + monthToData.get(month).dataToStep.get(day) + ", ");
             if (monthToData.get(month).dataToStep.get(day) > maxNumberOfSteps) {
@@ -67,7 +74,7 @@ public class StepTracker {
             }
             sumOfSteps += monthToData.get(month).dataToStep.get(day); // общее кол-во шагов в мес.
         }
-        Printer.print("");
+        print("");
         for (Integer steps : monthToData.get(month).dataToStep.values()) {
             countDay++;
             if (steps >= goalNumbersOfSteps) {
@@ -80,14 +87,8 @@ public class StepTracker {
                 countSet = 0;
             }
         }
-        Printer.showStatistics(sumOfSteps, maxNumberOfSteps, dayOfMaxNumberOfSteps, // за печать всей статистики отвечает данный метод класса Printer
-                dayInMonth, converter.lengthOfSteps, converter.caloriesPerStep, // передаем в нее всю необходимую информацию
+        showStatistics(sumOfSteps, maxNumberOfSteps, dayOfMaxNumberOfSteps,
+                dayInMonth, converter.lengthOfSteps, converter.caloriesPerStep,
                 goalNumbersOfSteps, maxSet, daySet);
     }
 }
-
-
-
-
-
-

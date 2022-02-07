@@ -1,3 +1,5 @@
+package utils;
+
 public class Printer {
 
     public static void print(String message) { //просто печать чего угодно
