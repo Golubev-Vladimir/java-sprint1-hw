@@ -8,13 +8,8 @@ public class Main {
         StepTracker stepTracker = new StepTracker();
         Scanner scanner = new Scanner(System.in);
         showMenu();
-        String userInput = scanner.next();
-        Menu userCommand = null;
-        for (int i = 0; i < Menu.values().length; i++) {
-            if (userInput.equals(Menu.values()[i].getCommand())) {
-                userCommand = Menu.values()[i];
-            }
-        }
+        int userInput = scanner.nextInt();
+        Menu userCommand = Menu.values()[userInput - 1];
         while (userCommand != Menu.EXIT) {
             switch (userCommand) {
                 case INPUT:
@@ -59,13 +54,9 @@ public class Main {
                     sayErrorCommand();
                     break;
             }
-            showMenu(); // после отработки команды пользователя, повторно запускаем всю конструкцию: меню, ввод, enum
-            userInput = scanner.next();
-            for (int i = 0; i < Menu.values().length; i++) {
-                if (userInput.equals(Menu.values()[i].getCommand())) {
-                    userCommand = Menu.values()[i];
-                }
-            }
+            showMenu(); // после отработки команды пользователя, повторно запускаем всю конструкцию: меню, ввод пользователя
+            userInput = scanner.nextInt();
+            userCommand = Menu.values()[userInput - 1];
         }
         exit();
     }

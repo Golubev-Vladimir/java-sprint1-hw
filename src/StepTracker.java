@@ -2,7 +2,6 @@ import static utils.Printer.*;
 
 import java.util.HashMap;
 
-
 public class StepTracker {
     private int goalNumbersOfSteps = 10000;
     private static int dayInMonth = 30;
