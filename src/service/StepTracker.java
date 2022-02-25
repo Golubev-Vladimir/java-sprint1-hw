@@ -1,4 +1,9 @@
-import static utils.Printer.*;
+package service;
+
+import model.MonthData;
+import service.Converter;
+
+import static service.Printer.*;
 
 import java.util.HashMap;
 
@@ -16,11 +21,11 @@ public class StepTracker {
         }
     }
 
-    public int getGoalNumbersOfSteps() { //Геттер на всякий случай
+    public int getGoalNumbersOfSteps() {
         return goalNumbersOfSteps;
     }
 
-    public void setGoalNumbersOfSteps(int goal) { //Сеттер для установки новой цели Обьекта
+    public void setGoalNumbersOfSteps(int goal) {
         if (goal < 0) {
             sayNegativeValue();
         } else {
@@ -33,7 +38,7 @@ public class StepTracker {
         return dayInMonth;
     }
 
-    public static void setDayInMonth(int day) { //Защищаем сеттером значение дней в месяце
+    public static void setDayInMonth(int day) {
         if (day < 28 || day > 31) {
             print("В месяце не может быть " + day + " дней");
         } else {
@@ -49,19 +54,19 @@ public class StepTracker {
         return months;
     }
 
-    void saveSteps(String month, int day, int steps) {
+    public void saveSteps(String month, int day, int steps) {
         monthToData.get(month).dataToStep.put(day, steps);
         saveData();
     }
 
-    void getStatistics(String month) {
+    public void getStatistics(String month) {
         int maxNumberOfSteps = 0;
         int sumOfSteps = 0;
         int dayOfMaxNumberOfSteps = 0; //
-        int countSet = 0; // счетчик для подряд идущих дней.
-        int maxSet = 0; // лучшая серия идущих дней
-        int countDay = 0; // счетчик дней для определения дня, с которого начинается самый результативный сет
-        int daySet = 0; //день с которого начинается лучший сет
+        int countSet = 0;  //счетчик для подряд идущих дней.
+        int maxSet = 0;    //лучшая серия идущих дней
+        int countDay = 0;  //счетчик дней для определения дня, с которого начинается самый результативный сет
+        int daySet = 0;    //день с которого начинается лучший сет
         Converter converter = new Converter(0.75, 50); // 1 шаг = 0,75 м, 1 шаг = 50 калорий
 
         putLine();
@@ -87,7 +92,7 @@ public class StepTracker {
             }
         }
         showStatistics(sumOfSteps, maxNumberOfSteps, dayOfMaxNumberOfSteps,
-                dayInMonth, converter.lengthOfSteps, converter.caloriesPerStep,
+                dayInMonth, converter.lengthSteps, converter.caloriesPerStep,
                 goalNumbersOfSteps, maxSet, daySet);
     }
 }

@@ -1,4 +1,4 @@
-package utils;
+package service;
 
 public class Printer {
 
@@ -35,7 +35,7 @@ public class Printer {
     }
 
     public static void saveData() {
-        print("Данный сохранены");
+        print("Данные сохранены");
         putLine();
     }
 

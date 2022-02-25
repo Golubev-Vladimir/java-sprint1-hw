@@ -1,6 +1,9 @@
+import model.Menu;
+import service.StepTracker;
+
 import java.util.Scanner;
 
-import static utils.Printer.*;
+import static service.Printer.*;
 
 public class Main {
 
@@ -9,8 +12,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         showMenu();
         int userInput = scanner.nextInt();
-        Menu userCommand = Menu.values()[userInput - 1];
-        while (userCommand != Menu.EXIT) {
+        Menu userCommand = Menu.values()[userInput - 1]; // каждому значению в enum соответствует свой порядковый номер:
+        while (userCommand != Menu.EXIT) {               // (0,1,2...n)
             switch (userCommand) {
                 case INPUT:
                     print("Введите название месяца с заглавной буквы.\n" +
@@ -54,8 +57,8 @@ public class Main {
                     sayErrorCommand();
                     break;
             }
-            showMenu(); // после отработки команды пользователя, повторно запускаем всю конструкцию: меню, ввод пользователя
-            userInput = scanner.nextInt();
+            showMenu();                     // после отработки команды пользователя,
+            userInput = scanner.nextInt();  // повторно запускаем всю конструкцию: меню, ввод пользователя
             userCommand = Menu.values()[userInput - 1];
         }
         exit();
